@@ -6,7 +6,7 @@ public class Clock {
 	private static final int MAX_MINUTES = 60;
 	private static final int MAX_HOURS = 24;
 	
-	private int day, hours, minute, interval;
+	private int day, hour, minute, interval;
 	
 	private boolean blockTick = false;
 	
@@ -21,7 +21,7 @@ public class Clock {
 	public Clock(int d, int h, int m, int i){
 		
 		this.day=d;
-		this.hours = h;
+		this.hour = h;
 		this.minute=m;
 		this.interval = i;
 	}
@@ -37,15 +37,19 @@ public class Clock {
 		
 		while(this.minute >= MAX_MINUTES){
 			this.minute -= MAX_MINUTES;
-			this.hours++;
+			this.hour++;
 		}
 		
-		while(this.hours >= MAX_HOURS){
-			this.hours -= MAX_HOURS;
+		while(this.hour >= MAX_HOURS){
+			this.hour -= MAX_HOURS;
 			this.day++;
 		}
 		
 		this.blockTick = true;
+	}
+	
+	public String toString(){
+		return "Day "+this.day+" "+this.hour+":"+this.minute;
 	}
 
 }

@@ -8,5 +8,10 @@ public class ConsoleGame extends Game {
 		super(p);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public void run(){
+		System.out.println("Welcome to TextEngine!");
+		super.run();
+	}
 
 }

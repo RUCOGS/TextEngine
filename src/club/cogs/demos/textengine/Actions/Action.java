@@ -7,8 +7,8 @@ public class Action {
 	
 	private String title;
 	
-	public Action(){
-		
+	public Action(String title){
+		this.title = title;
 	}
 
 	public boolean canBePerformedBy(Character c, Location l) {
@@ -16,7 +16,7 @@ public class Action {
 	}
 
 	public void preform(Character c) {
-		
+		//do nothing
 	}
 	
 	public String getTitle(){

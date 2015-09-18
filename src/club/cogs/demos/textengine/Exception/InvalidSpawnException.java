@@ -1,4 +1,4 @@
-package club.cogs.demos.textengine.Game;
+package club.cogs.demos.textengine.Exception;
 
 public class InvalidSpawnException extends RuntimeException {
 	

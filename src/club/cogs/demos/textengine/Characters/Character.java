@@ -13,18 +13,29 @@ import club.cogs.demos.textengine.Map.Map;
 public class Character {
 	
 	protected static HashMap<String,Character> CharacterCache = new HashMap<String,Character>();
-	private static ArrayList<Map> approvedMaps = new ArrayList<Map>(); //if empty all
+	
+	
+	private ArrayList<Map> approvedMaps = new ArrayList<Map>(); //if empty all
+	
+	private static String DEFAULT_SPAWN_NAME = "default";
 
 	private final String name;
 	private Location currentLocation;
 	private Level level;
+	private String spawnName;
+	private boolean allowRandomAction = true;
 	
 	public Character(String name, Level level) throws NameConflictException{
+		this(name, level, DEFAULT_SPAWN_NAME);
+	}
+	
+	public Character(String name, Level level, String spawnName) throws NameConflictException{
 		if(Character.CharacterCache.containsKey(name))
 			throw new NameConflictException(name);
 		
 		this.name = name;
 		this.level = level;
+		this.spawnName = spawnName;
 		
 		Character.CharacterCache.put(this.name, this);
 	}
@@ -34,7 +45,10 @@ public class Character {
 	}
 	
 	public void reset(){
-		this.setCurrentLocation(this.level.getSpan());
+		if(this.spawnName != null)
+			this.setCurrentLocation(this.level.getSpawn(this.spawnName));
+		else
+			this.setCurrentLocation(this.level.getSpawn());
 	}
 	
 	
@@ -56,6 +70,10 @@ public class Character {
 		return false;
 	}
 	
+	public void allowMap(Map m){
+		this.approvedMaps.add(m);
+	}
+	
 	public String getName(){
 		return this.name;
 	}
@@ -68,8 +86,30 @@ public class Character {
 		
 		if(actions == null)
 			throw new IllegalArgumentException();
-				
-		return actions.get(new Random().nextInt(actions.size()));
+
+		if(!this.actionAllowed())
+			return new Action("Wait");
+
+		if(this.randomActionAllowed())
+			return actions.get(new Random().nextInt(actions.size()));
+		
+		return null;
+	}
+
+	public boolean actionAllowed() {
+		return true;
+	}
+	
+	protected void preventRandomAction(){
+		this.allowRandomAction = false;
+	}
+	
+	protected void allowRandomAction(){
+		this.allowRandomAction = true;
+	}
+	
+	protected boolean randomActionAllowed(){
+		return this.allowRandomAction;
 	}
 
 }

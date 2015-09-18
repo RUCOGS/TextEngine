@@ -18,15 +18,28 @@ public class Location {
 	public Location(String name){
 		this.maps = new ArrayList<Map>();
 		this.name = name;
+		
+		this.actions = new ArrayList<Action>();
 	}
 	
 	public ArrayList<Action> getPreformableActions(Character c){
+		
 		ArrayList<Action> preformable = new ArrayList<Action>();
-		for(Action a : this.actions){
-			if(a.canBePerformedBy(c, this))
-				preformable.add(a);
+		if(this.actions != null){
+			for(Action a : this.actions){
+				if(a.canBePerformedBy(c, this))
+					preformable.add(a);
+			}
 		}
 		return preformable;
+	}
+	
+	public void addAction(Action a){
+		this.actions.add(a);
+	}
+	
+	public void removeAction(Action a){
+		this.actions.remove(a);
 	}
 	
 	public void linkMap(Map m){
