@@ -7,15 +7,15 @@ import java.util.Random;
 import club.cogs.demos.textengine.Actions.Action;
 import club.cogs.demos.textengine.Exception.NameConflictException;
 import club.cogs.demos.textengine.Game.Level;
+import club.cogs.demos.textengine.Map.AccessPriv;
 import club.cogs.demos.textengine.Map.Location;
-import club.cogs.demos.textengine.Map.Map;
 
 public class Character {
 	
 	protected static HashMap<String,Character> CharacterCache = new HashMap<String,Character>();
 	
 	
-	private ArrayList<Map> approvedMaps = new ArrayList<Map>(); //if empty all
+	private ArrayList<AccessPriv> accessPrives = new ArrayList<AccessPriv>(); //if empty all
 	
 	private static String DEFAULT_SPAWN_NAME = "default";
 
@@ -61,17 +61,19 @@ public class Character {
 	}
 	
 	public boolean canTravelTo(Location l){
-		if(approvedMaps.size() <= 0)
+		if (l.canAccess(this))
 			return true;
-		for(Map m : approvedMaps){
-			if (l.onMap(m))
-				return true;
-		}
+		if(accessPrives.size() <= 0)
+			return true;
 		return false;
 	}
 	
-	public void allowMap(Map m){
-		this.approvedMaps.add(m);
+	public void allowPriv(AccessPriv p){
+		this.accessPrives.add(p);
+	}
+	
+	public AccessPriv[] getPrivs(){
+		return (AccessPriv[]) this.accessPrives.toArray();
 	}
 	
 	public String getName(){

@@ -61,4 +61,15 @@ public class Location {
 		return this.getName();
 	}
 
+	public boolean canAccess(Character character) {
+		
+		for(Map m : this.maps){
+			if(m.permits(character))
+				return true;
+		}
+		
+		return false;
+		
+	}
+
 }
