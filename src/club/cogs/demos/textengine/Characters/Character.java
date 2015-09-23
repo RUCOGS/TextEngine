@@ -73,7 +73,14 @@ public class Character {
 	}
 	
 	public AccessPriv[] getPrivs(){
-		return (AccessPriv[]) this.accessPrives.toArray();
+		AccessPriv[] privs = new AccessPriv[accessPrives.size()];
+		
+		int i = 0;
+		for(AccessPriv p : this.accessPrives){
+			privs[i++] = p;
+		}
+		
+		return privs;
 	}
 	
 	public String getName(){
@@ -92,7 +99,7 @@ public class Character {
 		if(!this.actionAllowed())
 			return new Action("Wait");
 
-		if(this.randomActionAllowed())
+		if(this.randomActionAllowed() && actions.size() > 0)
 			return actions.get(new Random().nextInt(actions.size()));
 		
 		return null;
@@ -112,6 +119,10 @@ public class Character {
 	
 	protected boolean randomActionAllowed(){
 		return this.allowRandomAction;
+	}
+	
+	public void setLevel(Level l){
+		this.level = l;
 	}
 
 }

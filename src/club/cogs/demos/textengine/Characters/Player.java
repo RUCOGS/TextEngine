@@ -21,5 +21,4 @@ public class Player extends Character{
 	public void sendMessage(String message, String value) {
 		//ignore it
 	}
-
 }

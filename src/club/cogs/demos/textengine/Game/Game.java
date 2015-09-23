@@ -60,12 +60,8 @@ public class Game implements Runnable{
 			ArrayList<Action> c_actions = c_location.getPreformableActions(c);
 			Action c_action = c.chooseAction(c_actions);
 
-			System.out.println();
-			System.out.print(c.toString()+": ");
 			if(c_action != null)
 				c_action.preform(c);
-
-			System.out.println();
 		}
 		
 		clock.tick();
@@ -80,6 +76,14 @@ public class Game implements Runnable{
 		while(this.running){
 			this.loop();
 		}
+	}
+	
+	public ArrayList<Character> getCharacters(){
+		ArrayList<Character> cs = new ArrayList<Character>();
+		for(Character c : this.characters){
+			cs.add(c);
+		}
+		return cs;
 	}
 	
 }

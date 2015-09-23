@@ -29,7 +29,7 @@ public class Map {
 	}
 	
 	public void GrantAccess(AccessPriv p){
-		
+		this.accessPrivs.add(p);
 	}
 
 	public boolean permits(Character character) {
